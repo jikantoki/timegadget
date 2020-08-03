@@ -1,0 +1,89 @@
+<span class="preproc">#include</span> <span class="string">&quot;palhsp.hsp&quot;</span>
+
+<span class="statement">bgscr</span> 0,380,100					<span class="comment">//画面の大きさを指定</span>
+<span class="statement">title</span> <span class="string">&quot;時計 by ときえのき&quot;</span>		<span class="comment">//タイトルの指定</span>
+<span class="statement">gsel</span> 0,2						<span class="comment">//最前面化</span>
+
+
+<span class="label">*mainsystem</span>
+<span class="macro">while</span>							<span class="comment">//ループ開始</span>
+	<span class="statement">cls</span> 3						<span class="comment">//画面の初期化、色の設定</span>
+	Year = <span class="function">gettime</span>(0)			<span class="comment">//西暦を取得、Yearに代入</span>
+	Month = <span class="function">gettime</span>(1)			<span class="comment">//月を取得、Monthに代入</span>
+	DayWeek = <span class="function">gettime</span>(2)		<span class="comment">//曜日を取得、DayWeekに代入</span>
+	Day = <span class="function">gettime</span>(3)			<span class="comment">//日を取得、Dayに代入</span>
+	Hour = <span class="function">gettime</span>(4)			<span class="comment">//時を取得、Hourに代入</span>
+	Min = <span class="function">gettime</span>(5)			<span class="comment">//分を取得、Minに代入</span>
+	Sec = <span class="function">gettime</span>(6)			<span class="comment">//秒を取得、Secに代入</span>
+
+	<span class="statement">font</span> <span class="string">&quot;メイリオ&quot;</span>,35,0		<span class="comment">//フォント、サイズ、字体の指定</span>
+	<span class="statement">color</span> 200,32,32				<span class="comment">//文字色の指定</span>
+	<span class="statement">pos</span> 346,-6					<span class="comment">//文字の開始場所を指定</span>
+	<span class="statement">mes</span> <span class="string">&quot;■&quot;</span>
+	<span class="statement">font</span> <span class="string">&quot;メイリオ&quot;</span>,25,0		<span class="comment">//フォント、サイズ、字体の指定</span>
+	<span class="statement">color</span> 255,255,255			<span class="comment">//文字色の指定</span>
+	<span class="statement">pos</span> 350,0					<span class="comment">//文字の開始場所を指定</span>
+	<span class="statement">mes</span> <span class="string">&quot;Ⅹ&quot;</span>
+	<span class="statement">pos</span> 0,0
+	
+	<span class="statement">mes</span> Year,1					<span class="comment">//西暦を出力</span>
+	<span class="statement">mes</span> <span class="string">&quot;年、&quot;</span>,1				<span class="comment">//&quot;年&quot;を出力</span>
+	<span class="statement">if</span> DayWeek == 0{			<span class="comment">//条件、日曜日の場合</span>
+		<span class="statement">mes</span> <span class="string">&quot;日&quot;</span>,1				<span class="comment">//&quot;日曜日&quot;を出力</span>
+	}							<span class="comment">//if終了</span>
+	<span class="statement">if</span> DayWeek == 1{
+		<span class="statement">mes</span> <span class="string">&quot;月&quot;</span>,1
+	}
+	<span class="statement">if</span> DayWeek == 2{
+		<span class="statement">mes</span> <span class="string">&quot;火&quot;</span>,1
+	}
+	<span class="statement">if</span> DayWeek == 3{
+		<span class="statement">mes</span> <span class="string">&quot;水&quot;</span>,1
+	}
+	<span class="statement">if</span> DayWeek == 4{
+		<span class="statement">mes</span> <span class="string">&quot;木&quot;</span>,1
+	}
+	<span class="statement">if</span> DayWeek == 5{
+		<span class="statement">mes</span> <span class="string">&quot;金&quot;</span>,1
+	}
+	<span class="statement">if</span> DayWeek == 6{
+		<span class="statement">mes</span> <span class="string">&quot;土&quot;</span>,1
+	}
+	<span class="statement">mes</span> <span class="string">&quot;曜日&quot;</span>					<span class="comment">//&quot;曜日&quot;を出力</span>
+
+	<span class="statement">font</span> <span class="string">&quot;メイリオ&quot;</span>,40,1		<span class="comment">//フォント、サイズ、字体の指定</span>
+	<span class="statement">pos</span> 0						<span class="comment">//文字の開始場所を指定</span>
+	<span class="statement">if</span> Month &lt; 10 : <span class="statement">mes</span> <span class="string">&quot;0&quot;</span>,1	<span class="comment">//一桁対策、もし一桁なら先頭に0を表示</span>
+	<span class="statement">mes</span> Month,1					<span class="comment">//月を出力</span>
+	<span class="statement">mes</span> <span class="string">&quot;/&quot;</span>,1
+	<span class="statement">if</span> Day &lt; 10 : <span class="statement">mes</span> <span class="string">&quot;0&quot;</span>,1
+	<span class="statement">mes</span> Day,1					<span class="comment">//日を出力</span>
+	<span class="statement">mes</span> <span class="string">&quot;  &quot;</span>,1
+	<span class="statement">if</span> Hour &lt; 10 : <span class="statement">mes</span> <span class="string">&quot;0&quot;</span>,1
+	<span class="statement">mes</span> Hour,1					<span class="comment">//時を出力</span>
+	<span class="statement">mes</span> <span class="string">&quot;:&quot;</span>,1
+	<span class="statement">if</span> Min &lt; 10 : <span class="statement">mes</span> <span class="string">&quot;0&quot;</span>,1
+	<span class="statement">mes</span> Min,1					<span class="comment">//分を出力</span>
+	<span class="statement">mes</span> <span class="string">&quot;.&quot;</span>,1
+	<span class="statement">if</span> Sec &lt; 10 : <span class="statement">mes</span> <span class="string">&quot;0&quot;</span>,1
+	<span class="statement">mes</span> Sec,1					<span class="comment">//秒を出力</span>
+
+	<span class="statement">onclick</span> <span class="statement">gosub</span> <span class="label">*endend</span>		<span class="comment">//終了ボタンの割り込み</span>
+	
+	<span class="statement">wait</span> 10						<span class="comment">//0.1秒待機させる</span>
+<span class="macro">wend</span>							<span class="comment">//ループ終了</span>
+
+<span class="label">*endend</span>							<span class="comment">//ここから終了処理</span>
+	<span class="statement">if</span> <span class="sysvar">mousex</span> &gt; 351{			<span class="comment">//この四行でマウスの座標を確認</span>
+		<span class="statement">if</span> <span class="sysvar">mousex</span> &lt; 375{
+			<span class="statement">if</span> <span class="sysvar">mousey</span> &gt; 5{
+				<span class="statement">if</span> <span class="sysvar">mousey</span> &lt; 29{
+					<span class="statement">end</span>			<span class="comment">//終了</span>
+				}<span class="statement">else</span> : <span class="statement">goto</span> <span class="label">*dru</span>	<span class="comment">//その他の座標であればドラッグ処理にする</span>
+			}<span class="statement">else</span> : <span class="statement">goto</span> <span class="label">*dru</span>
+		}<span class="statement">else</span> : <span class="statement">goto</span> <span class="label">*dru</span>
+	}<span class="statement">else</span> : <span class="statement">goto</span> <span class="label">*dru</span>
+
+<span class="label">*dru</span>
+	<span class="statement">sendmsg</span> <span class="sysvar">hwnd</span>,$00A1,2,0
+	<span class="statement">goto</span> <span class="label">*mainsystem</span>

@@ -1,0 +1,89 @@
+#include "palhsp.hsp"
+
+bgscr 0,380,100					//画面の大きさを指定
+title "時計 by ときえのき"		//タイトルの指定
+gsel 0,2						//最前面化
+
+
+*mainsystem
+while							//ループ開始
+	cls 3						//画面の初期化、色の設定
+	Year = gettime(0)			//西暦を取得、Yearに代入
+	Month = gettime(1)			//月を取得、Monthに代入
+	DayWeek = gettime(2)		//曜日を取得、DayWeekに代入
+	Day = gettime(3)			//日を取得、Dayに代入
+	Hour = gettime(4)			//時を取得、Hourに代入
+	Min = gettime(5)			//分を取得、Minに代入
+	Sec = gettime(6)			//秒を取得、Secに代入
+
+	font "メイリオ",35,0		//フォント、サイズ、字体の指定
+	color 200,32,32				//文字色の指定
+	pos 346,-6					//文字の開始場所を指定
+	mes "■"
+	font "メイリオ",25,0		//フォント、サイズ、字体の指定
+	color 255,255,255			//文字色の指定
+	pos 350,0					//文字の開始場所を指定
+	mes "Ⅹ"
+	pos 0,0
+	
+	mes Year,1					//西暦を出力
+	mes "年、",1				//"年"を出力
+	if DayWeek == 0{			//条件、日曜日の場合
+		mes "日",1				//"日曜日"を出力
+	}							//if終了
+	if DayWeek == 1{
+		mes "月",1
+	}
+	if DayWeek == 2{
+		mes "火",1
+	}
+	if DayWeek == 3{
+		mes "水",1
+	}
+	if DayWeek == 4{
+		mes "木",1
+	}
+	if DayWeek == 5{
+		mes "金",1
+	}
+	if DayWeek == 6{
+		mes "土",1
+	}
+	mes "曜日"					//"曜日"を出力
+
+	font "メイリオ",40,1		//フォント、サイズ、字体の指定
+	pos 0						//文字の開始場所を指定
+	if Month < 10 : mes "0",1	//一桁対策、もし一桁なら先頭に0を表示
+	mes Month,1					//月を出力
+	mes "/",1
+	if Day < 10 : mes "0",1
+	mes Day,1					//日を出力
+	mes "  ",1
+	if Hour < 10 : mes "0",1
+	mes Hour,1					//時を出力
+	mes ":",1
+	if Min < 10 : mes "0",1
+	mes Min,1					//分を出力
+	mes ".",1
+	if Sec < 10 : mes "0",1
+	mes Sec,1					//秒を出力
+
+	onclick gosub *endend		//終了ボタンの割り込み
+	
+	wait 10						//0.1秒待機させる
+wend							//ループ終了
+
+*endend							//ここから終了処理
+	if mousex > 351{			//この四行でマウスの座標を確認
+		if mousex < 375{
+			if mousey > 5{
+				if mousey < 29{
+					end			//終了
+				}else : goto *dru	//その他の座標であればドラッグ処理にする
+			}else : goto *dru
+		}else : goto *dru
+	}else : goto *dru
+
+*dru
+	sendmsg hwnd,$00A1,2,0
+	goto *mainsystem
